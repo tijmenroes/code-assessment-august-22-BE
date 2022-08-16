@@ -72,7 +72,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -82,9 +81,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'role' => 'required|in:boss,developer,designer,intern',
+            'email' => 'required|email',
+            'picture' => 'required',
+        ]);
+
+        $user = User::find($id);
+
+        $user->update([
+            'name' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'picture' => $request->picture,
+        ]);
+
+        return $user;
     }
 
     /**
