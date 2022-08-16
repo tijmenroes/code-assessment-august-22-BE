@@ -115,4 +115,17 @@ class UserController extends Controller
 
         return $user->delete();
     }
+
+    /**
+     * Restore soft deleted user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $user = User::withTrashed()->find($id)->restore();
+        return $user;
+    }
 }
