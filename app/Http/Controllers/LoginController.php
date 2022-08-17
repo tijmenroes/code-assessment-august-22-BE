@@ -61,4 +61,16 @@ class LoginController extends Controller
         ];
     }
 
+    /**
+     * Remove all tokens from an user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+        return response(200);
+    }
+
 }

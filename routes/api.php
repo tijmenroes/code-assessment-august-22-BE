@@ -25,3 +25,4 @@ Route::get('/users/{id}/restore', [UserController::class, 'restore']);
 
 Route::post('/register', [LoginController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
