@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Fired;
 
 class UserController extends Controller
 {
@@ -63,7 +65,10 @@ class UserController extends Controller
         if ($authenticatedUser && $authenticatedUser->id === $id) {
             return response(['message'=>'You cant delete yourself!'] ,404);
         }
-        return User::find($id)->delete();
+        $user = User::find($id);
+        Mail::to($user->email)->send(new Fired());
+
+        return $user->delete();
     }
 
     /**
